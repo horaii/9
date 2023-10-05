@@ -1,0 +1,62 @@
+.department {
+	figure {
+		background-color: lightblue;
+	}
+
+	.historyBox {
+		margin: 100px 0px;
+		article {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			padding: 50px 0px;
+			justify-content: space-between;
+			position: relative;
+
+			.line {
+				position: absolute;
+				top: 0;
+				left: 35%;
+				width: 1px;
+				height: 1px;
+				background: #555;
+			}
+
+			h2 {
+				width: 30%;
+				text-align: right;
+			}
+			ul {
+				width: 65%;
+				padding-left: 50px;
+			}
+		}
+	}
+
+	.memberBox {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		article {
+			width: 30%;
+			margin-bottom: 100px;
+
+			.pic {
+				width: 100%;
+				height: 30vw;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+
+			h2 {
+				margin-bottom: 10px;
+			}
+		}
+	}
+}

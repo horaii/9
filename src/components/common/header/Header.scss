@@ -1,0 +1,47 @@
+@import '/src/styles/Variable.scss';
+
+.header {
+	width: 100%;
+	padding: 3vh 10vw;
+	display: flex;
+	justify-content: space-between;
+
+	h1 {
+		font-size: 1.5rem;
+		color: #333;
+	}
+
+	ul {
+		display: flex;
+		gap: 4vw;
+		align-items: center;
+		font-size: 1rem;
+		color: #888;
+
+		li {
+			a.active {
+				color: hotpink;
+			}
+		}
+	}
+}
+
+.header.main {
+	h1 {
+		color: aqua;
+	}
+}
+
+.header.sub {
+	h1 {
+		color: hotpink;
+	}
+}
+
+@media screen and (max-width: $tablet) {
+	.header {
+		ul {
+			display: none;
+		}
+	}
+}
