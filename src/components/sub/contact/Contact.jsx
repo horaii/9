@@ -31,6 +31,11 @@ export default function Contact() {
 		});
 		//마커위치값생성
 		marker.setMap(instance.current);
+		const mapTypeControl = new kakao.maps.MapTypeControl()
+		instance.current.addControl(
+			mapTypeControl,
+			kakao.maps.ControlPosition.BUTTONLEFT
+		)
 	})
 	useEffect(()=>{
 		Traffic
