@@ -1,19 +1,20 @@
-import './Modal.scss'
-import { forwardRef, useState, useImperativeHandle } from 'react'
+import './Modal.scss';
+import { useEffect } from 'react';
 
-const Modal = forwardRef(({ children}, ref) => {
-    const [Open, setOpen] = useState(false)
-    useImperativeHandle(ref, () => {
-        return {open: () => setOpen(true)}
-    })
-    return (
-        <>
-            {Open &&(<aside className='modal'>
-                <div className='con'></div>
-                <span onClick={()=> setOpen(false)}>close</span>
-            </aside>)}
-        </>
-    )
-  })
+const Modal = ({ children, setIsModal }) => {
+    useEffect(()=>{
+        document.body.style.overflow = 'hidden'
 
-export default Modal
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    },[])
+	return (
+		<aside className='modal'>
+			<div className='con'>{children}</div>
+			<span onClick={() => setIsModal(false)}>close</span>
+		</aside>
+	);
+};
+
+export default Modal;
