@@ -3,7 +3,7 @@ import './Header.scss'
 
 export default function Header({ isMain }) {
 	return (
-		<header>
+		<header className='header'>
 			<h1>
 				<Link to='/'>LOGO</Link>
 			</h1>
