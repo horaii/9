@@ -106,6 +106,7 @@ export default function Contact() {
 				},
 				(error) => {
 					alert('문의내용 전송에 실패했습니다.');
+					console.log(error)
 				}
 			);
 	};
