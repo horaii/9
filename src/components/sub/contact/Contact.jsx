@@ -95,10 +95,10 @@ export default function Contact() {
 
 		emailjs
 			.sendForm(
-				'service_utsgevg',
-				'template_c3z7kgk',
+				`${process.env.REACT_APP_SERVICE_ID}`,
+				`${process.env.REACT_APP_TEMPLATE_ID}`,
 				form.current,
-				'gCZpWm3Anui9Td5jd'
+				`${process.env.REACT_APP_PUBLIC_KEY}`
 			)
 			.then(
 				(result) => {
