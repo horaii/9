@@ -90,8 +90,26 @@ export default function Contact() {
 			: instance.current.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
 	}, [Traffic]);
 
+	const resetForm = ()=>{
+		const nameForm = form.current.querySelector('.nameEl')
+		const emailForm = form.current.querySelector('.emailEl')
+		const msgForm = form.current.querySelector('.msgEl')
+
+		nameForm.value = ''
+		emailForm.value = ''
+		msgForm.value = ''
+	}
+
 	const sendEmail = (e) => {
 		e.preventDefault()
+
+		const nameForm = form.current.querySelector('.nameEl')
+		const emailForm = form.current.querySelector('.emailEl')
+		const msgForm = form.current.querySelector('.msgEl')
+
+		if(!nameForm.value || !emailForm.value || !msgForm.value){
+			return alert('사용자이름, 이메일주소, 문의내용은 필수 입력사항입니다.')
+		}
 
 		emailjs
 			.sendForm(
@@ -103,10 +121,14 @@ export default function Contact() {
 			.then(
 				(result) => {
 					alert('문의내용이 메일로 발송되었습니다.');
+					console.log(result)
+					resetForm()
+					
 				},
 				(error) => {
 					alert('문의내용 전송에 실패했습니다.');
 					console.log(error)
+					resetForm()
 				}
 			);
 	};
@@ -116,13 +138,24 @@ export default function Contact() {
 		<Layout title={'Contact'}>
 			<div className='mailBox'>
 				<form ref={form} onSubmit={sendEmail}>
-					<label>Name</label>
-					<input type="text" name="from_name" />
-					<label>Email</label>
-					<input type="email" name="user_email" />
-					<label>Message</label>
-					<textarea name="message" />
-					<input type="submit" value="Send" />
+				<div className='upper'>
+						<label>Name</label>
+						<input type='text' name='user_name' className='nameEl' />
+						<label>Email</label>
+						<input type='email' name='user_email' className='emailEl' />
+					</div>
+
+					<div className='lower'>
+						<label>Message</label><br />
+						<textarea name='message' className='msgEl' />
+					</div>
+
+					<div className='btnSet'>
+						<input type='reset' value='Cancel' />
+						<input type='submit' value='Send' />
+					</div>
+						
+					
 				</form>
 			</div>
 

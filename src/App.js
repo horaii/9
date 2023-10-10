@@ -1,4 +1,5 @@
 import './styles/Global.scss';
+import './styles/Variable.scss';
 import { Route, Switch } from 'react-router-dom';
 import Header from './components/common/header/Header';
 import Department from './components/sub/department/Department';
