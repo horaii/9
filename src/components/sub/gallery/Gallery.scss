@@ -1,35 +1,50 @@
 @import '../../../styles/Variable.scss';
-.Gallery{
-    .picFrame{
-        width: 100%;
 
-        &::after{
-            content: '';
-            display: block;
-            clear: both;
-        }
+.Gallery {
+	.loading {
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	.picFrame {
+		width: 100%;
+		opacity: 0;
+		transform: translateY(200px);
+		transition: 0.5s;
 
-        article{
-            width: 25%;
-            padding: 10px;
-            float: left;
+		&.on {
+			opacity: 1;
+			transform: translateY(0px);
+		}
 
-            .inner{
-                width: 100%;
-                padding: 10px;
-                background: #fff;
-                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+		&::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
 
-                .pic{
-                    width: 100%;
-                }
-                h2{
-                    font: normal 1rem/1.2 'arial';
-                    color: #555;
-                    margin-top: 10px;
-                    margin-bottom: 40px;
-                }
-                .profile {
+		article {
+			width: 25%;
+			padding: 10px;
+			float: left;
+
+			.inner {
+				width: 100%;
+				padding: 10px;
+				background: #fff;
+				box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+
+				.pic {
+					width: 100%;
+				}
+				h2 {
+					font: normal 1rem/1.2 'arial';
+					color: #555;
+					margin-top: 10px;
+					margin-bottom: 40px;
+				}
+				.profile {
 					width: 100%;
 					display: flex;
 					align-items: center;
@@ -39,9 +54,9 @@
 						font-size: 0.8rem;
 					}
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 }
 @media screen and (max-width: $labtop) {
 	.Gallery {
