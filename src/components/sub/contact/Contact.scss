@@ -8,7 +8,8 @@
 		}
 	}
 	
-	.mailBox{
+	#mailBox {
+		border: 1px solid red;
 		width: 50%;
 		margin-bottom: 100px;
 
@@ -16,32 +17,36 @@
 			width: 100%;
 			display: flex;
 			margin-bottom: 50px;
+			justify-content: space-between;
 
-			label {
-				font: bold 1rem/1 'arial';
-				color: #555;
-				margin-right: 20px;
-				position: relative;
-				top: 20px;
-			}
-			input[type='text'],
-			input[type='email'] {
-				border: none;
-				padding: 10px 20px;
-				border-bottom: 1px solid #555;
-				margin-right: 50px;
-				outline: none;
-				transition: 0.5s;
+			span {
+				width: 48%;
 
-				&:focus {
-					background: lightcyan;
+				label {
+					font: bold 1rem/1 'arial';
+					color: #555;
+					margin-right: 20px;
+					position: relative;
+					top: 20px;
+				}
+				input[type='text'],
+				input[type='email'] {
+					border: none;
+					padding: 10px 20px;
+					border-bottom: 1px solid #555;
+					margin-right: 50px;
+					outline: none;
+					transition: 0.5s;
+
+					&:focus {
+						background: lightcyan;
+					}
 				}
 			}
 		}
 		.lower {
 			width: 100%;
 			margin-bottom: 10px;
-
 			label {
 				display: block;
 				margin-bottom: 5px;
@@ -63,7 +68,6 @@
 			}
 		}
 
-		/*
 		.btnSet {
 			width: 100%;
 			padding-right: 20px;
@@ -79,43 +83,45 @@
 				text-align: center;
 			}
 		}
-		*/
 	}
 
-	.container{
+	.container {
 		width: 100%;
 		height: 60vh;
-		background-color: #111;
-		position: relative;
-		
-		.map,
-		.view{
-		width: 100%;
-		height: 100%;
 		background: #111;
-		position: absolute;
-		top: 0;
-		left: 0px;
-		opacity: 0;
-		z-index: 1;
-
-			&.on{
+		position: relative;
+		.map,
+		.view {
+			width: 100%;
+			height: 100%;
+			background: #111;
+			position: absolute;
+			top: 0;
+			left: 0px;
+			opacity: 0;
+			z-index: 1;
+			&.on {
 				opacity: 1;
 				z-index: 2;
 			}
 		}
 	}
-	
-	ul{
+	ul {
 		display: flex;
 		gap: 20px;
-
-		li{
+		li {
 			cursor: pointer;
 		}
-		li.on{
+		li.on {
 			color: hotpink;
 		}
 	}
 }
 
+@media screen and (max-width: 1399px) {
+	.Contact {
+		#mailBox {
+			width: 100%;
+		}
+	}
+}
