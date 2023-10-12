@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Layout from '../../common/layout/Layout';
 import './Contact.scss';
 import emailjs from '@emailjs/browser';
@@ -11,8 +10,13 @@ export default function Contact() {
 	const [Traffic, setTraffic] = useState(false);
 	const [Index, setIndex] = useState(2);
 	const [IsMap, setIsMap] = useState(true)
+	// kakao api를 cdn방식으로 불러오고 있기 떄문에 리액트 컴포넌트가 실행되면 window객체에서 직접 비구조 할당으로 kakao객체를 뽑아옴
 	const { kakao } = window;
 	//첫번째 지도를 출력하기 위한 객체정보
+
+	//지도 정보데이터를 객체형으로 구조화한다음에  데이터 기반으로 자동 지도화면이 생성되도록 만들었다.
+	//데이터 정보가 많아질떄를 대비해서 유지보수에 최적화 되도록 코드개선
+	//해당 정보 값은 자주 바뀌는 값이 아니기 떄문에 굳이 false를 담아서 불필요한 재렌더링을 막기 위해 useRef에 담아 봤다
 	const info = useRef([
 		{
 			title: '삼성역 코엑스',
@@ -47,6 +51,7 @@ export default function Contact() {
 		),
 	});
 
+	//지도 위치를 중심으로 이동 시키는 헨들러 함수제작
 	const setCenter = ()=>{
 		instance.current.setCenter(info.current[Index].latlng);
 	}
@@ -66,7 +71,16 @@ export default function Contact() {
 			mapTypeControl,
 			kakao.maps.ControlPosition.BOTTOMLEFT
 		);
+
+		//지도 생성시 마커 고정적으로 적용되기 때문에 브라우저 리사이즈시 마커가 가운데 위치하지 않는 문제
+		//마커를 가운데 고정시키는 함수를 제작한뒤 윈도우객체 직접 resize이벤트 발생시마다 핸들러함수 호출해서 마커위치 보정
+
+		//Contact페이지에만 동작되야 되는 핸들러함수를 최상위 객체인 window에 직접 연결했기 때문에
+		//라우터로 다른페이지이동하더라도 계속해서 setCenter호출되는 문제점 발생
+		//해결방법: Contact 컴포넌트가 언마운트시 강제로 윈도우객체에서 setCenter핸들러를 제거
 		window.addEventListener('resize', setCenter)
+
+		
 
 		//로드뷰
 		
@@ -80,6 +94,10 @@ export default function Contact() {
 				);
 			}
 		);
+		
+		return () => {
+			window.removeEventListener('resize', setCenter);
+		};
 
 	}, [Index]); //Index값이 변경될때마다 지도화면이 다시 갱신되어야 하므로 Index값을 의존성 배열에 등록
 
@@ -175,7 +193,7 @@ export default function Contact() {
 				<div className={`view ${IsMap ? '' : 'on'}`} ref={view}></div>
 				<div className={`map ${IsMap ? 'on' : ''}`} ref={map}></div>
 			</div>
-
+			{/* 데이터 기반으로 자동 버튼 처리 + 더 쉬운 유지보수 */}
 			<ul>
 				{info.current.map((el, idx) => (
 					<li className={Index === idx ? 'on' : ''} key={idx} onClick={() => {
