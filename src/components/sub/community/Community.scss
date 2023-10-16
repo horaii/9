@@ -27,10 +27,12 @@
 				}
 			}
 		}
+
 		.showBox {
 			width: 100%;
 			border: 1px solid #aaa;
 			padding: 50px;
+
 			article {
 				background: #fff;
 				padding: 30px;
@@ -39,20 +41,11 @@
 				justify-content: space-between;
 				align-content: center;
 				flex-wrap: wrap;
+
 				.txt {
 					width: 88%;
 					h2 {
 						margin-bottom: 10px;
-					}
-
-					input[type='text'],
-					textarea {
-						width: 50%;
-						padding: 8px 10px;
-						border: 1px solid #aaa;
-						resize: none;
-						margin-bottom: 10px;
-						background: #f0fdff;
 					}
 				}
 				.btnSet {
@@ -61,6 +54,7 @@
 					gap: 20px;
 					align-items: center;
 					justify-content: flex-end;
+
 					button {
 						border: none;
 						background: transparent;

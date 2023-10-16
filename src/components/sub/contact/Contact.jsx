@@ -157,41 +157,52 @@ export default function Contact() {
 
 	return (
 		<Layout title={'Contact'}>
-			<div id='mailBox'>
-				<form ref={form} onSubmit={sendEmail}>
-					<div className='upper'>
-						<span>
-							<label>Name</label>
-							<input type='text' name='user_name' className='nameEl' />
-						</span>
+			<div className='upperBox'>
+				<div id='mailBox'>
+					<form ref={form} onSubmit={sendEmail}>
+						<div className='upper'>
+							<span>
+								<label>Name</label>
+								<input type='text' name='user_name' className='nameEl' />
+							</span>
 
-						<span>
-							<label>Email</label>
-							<input type='email' name='user_email' className='emailEl' />
-						</span>
-					</div>
+							<span>
+								<label>Email</label>
+								<input type='email' name='user_email' className='emailEl' />
+							</span>
+						</div>
 
-					<div className='lower'>
-						<label>Message</label>
-						<textarea name='message' className='msgEl' />
-					</div>
+						<div className='lower'>
+							<label>Message</label>
+							<textarea name='message' className='msgEl' />
+						</div>
 
-					<div className='btnSet'>
-						<input type='reset' value='Cancel' />
-						<input type='submit' value='Send' />
-					</div>
-				</form>
+						<div className='btnSet'>
+							<input type='reset' value='Cancel' />
+							<input type='submit' value='Send' />
+						</div>
+					</form>
+				</div>
+
+				<div id='etc'>
+					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit, id
+					nesciunt? Dolores architecto quas voluptate dolorem impedit ab dolore,
+					itaque blanditiis iste esse delectus libero ipsum repudiandae porro
+					nulla fuga.
+				</div>
 			</div>
 
 			<div id='mapBox'>
-				<button onClick={() => setTraffic(!Traffic)}>
-					{Traffic ? '교통정보 끄기' : '교통정보 켜기'}
-				</button>
+				<div className='btnSet'>
+					<button onClick={() => setTraffic(!Traffic)}>
+						{Traffic ? '교통정보 끄기' : '교통정보 켜기'}
+					</button>
 
-				<button onClick={setCenter}>지도 위치 초기화</button>
-				<button onClick={() => setIsMap(!IsMap)}>
-					{IsMap ? '로드뷰보기' : '지도보기'}
-				</button>
+					<button onClick={setCenter}>지도 위치 초기화</button>
+					<button onClick={() => setIsMap(!IsMap)}>
+						{IsMap ? '로드뷰보기' : '지도보기'}
+					</button>
+				</div>
 
 				<div className='container'>
 					<div className={`view ${IsMap ? '' : 'on'}`} ref={view}></div>

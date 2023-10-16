@@ -24,3 +24,14 @@ html{
 		background: #333;
 	}
 }
+table {
+	border-collapse: collapse;
+}
+fieldset {
+	border: none;
+}
+.h {
+	position: absolute;
+	top: -9999px;
+	opacity: 0;
+}
