@@ -15,6 +15,10 @@ export default function Community() {
 	//저장소에 값이 있으면 해당값을 parsing된 데이터가 있는 배열값을 리턴
 	const [Posts, setPosts] = useState(getLocalData());
 	const [Allowed, setAllowed] = useState(true);
+	const [WriteOn, setWriteOn] = useState(false)
+	const [OpenText, setOpenText] = useState(-1)
+
+	
 
 	console.log(Posts);
 
@@ -81,87 +85,114 @@ export default function Community() {
 			})
 		)
 	}
+	const handleOnClick = (e, idx) => {
+		setOpenText(idx);
+	  };
 
 	useEffect(() => {
 		localStorage.setItem('post', JSON.stringify(Posts));
+		
+	
 	}, [Posts]);
+
+
 
 	return (
 		<Layout title={'Community'}>
-			<div className='inputBox'>
-				<input ref={refInput} type='text' placeholder='제목을 입력하세요.' />
-				<br />
-				<textarea
-					ref={refTextarea}
-					cols='30'
-					rows='3'
-					placeholder='본문을 입력하세요.'
-				></textarea>
-				<nav className='btnSet'>
-					<button onClick={resetForm}>cancel</button>
-					<button onClick={createPost}>write</button>
-				</nav>
+			<div className='box'>
+				<button onClick={() => { setWriteOn(!WriteOn) }}>{WriteOn ? '글닫기' : '글쓰기'}</button>
+				{WriteOn &&
+					<div className='inputBox'>
+						<input ref={refInput} type='text' placeholder='제목을 입력하세요.' />
+						<br />
+						<textarea
+							ref={refTextarea}
+							cols='30'
+							rows='3'
+							placeholder='본문을 입력하세요.'
+						></textarea>
+						<nav className='btnSet'>
+							<button onClick={resetForm}>cancel</button>
+							<button onClick={createPost}>write</button>
+						</nav>
+					</div>
+				}
+
+				<div className='showBox'>
+					{Posts.map((post, idx) => {
+						const string = JSON.stringify(post.data);
+
+						const [year, month, date] = string
+							.split('T')[0]
+							.split('"')[1]
+							.split('-');
+
+						let [hour, min, sec] = string.split('T')[1].split('.')[0].split(':');
+						hour = parseInt(hour) + 9;
+						hour >= 24 && (hour = hour - 24);
+
+
+						if (post.enableUpdate) {
+							return (
+								<article key={idx}>
+									<div className='txt'>
+										<input type='text' defaultValue={post.title} ref={refEditInput} />
+										<br />
+										<textarea
+											//react에서 value속성을 적용하려면 무조건 onChange이벤트 연결 필수
+											//onChange이벤트 연결하지 않을때에는 value가닌 defaultValue속성 적용
+											defaultValue={post.content}
+											ref={refEditTextarea}
+										/>
+									</div>
+									<nav className='btnSet'>
+										<button onClick={() => disableUpdate(idx)}>Cancel</button>
+										<button
+											onClick={() => {
+												updatePost(idx);
+												disableUpdate(idx);
+											}}
+										>
+											Update
+										</button>
+									</nav>
+								</article>
+							);
+						} else {
+							return (
+								
+								<article key={idx} onClick={e => {handleOnClick(e, idx)}}>
+								
+									<div className='txt'>
+										<h2>{post.title}</h2>
+										<div>
+											<p>{`${year.substring(2, 4)}.${month}.${date}`}</p>
+											<p>{`${hour}:${min}`}</p>
+										</div>
+
+
+									</div>
+									{OpenText === idx && 
+										<div className='txtBox'>
+											<div>
+												{post.content}
+											</div>
+											<nav className='btnSet'>
+												<button onClick={() => enableUpdate(idx)}>Edit</button>
+												<button onClick={() => deletePost(idx)}>Delete</button>
+											</nav>
+										</div>
+									}
+
+
+								</article>
+							);
+						}
+
+					})}
+				</div>
 			</div>
-			<div className='showBox'>
-				{Posts.map((post, idx) => {
-					const string = JSON.stringify(post.data);
 
-					const [year, month, date] = string
-						.split('T')[0]
-						.split('"')[1]
-						.split('-');
-
-					let [hour, min, sec] = string.split('T')[1].split('.')[0].split(':');
-					hour = parseInt(hour) + 9;
-					hour >= 24 && (hour = hour - 24);
-
-
-					if (post.enableUpdate) {
-						return (
-							<article key={idx}>
-								<div className='txt'>
-									<input type='text' defaultValue={post.title} ref={refEditInput} />
-									<br />
-									<textarea
-										//react에서 value속성을 적용하려면 무조건 onChange이벤트 연결 필수
-										//onChange이벤트 연결하지 않을때에는 value가닌 defaultValue속성 적용
-										defaultValue={post.content}
-										ref={refEditTextarea}
-									/>
-								</div>
-								<nav className='btnSet'>
-									<button onClick={() => disableUpdate(idx)}>Cancel</button>
-									<button
-										onClick={() => {
-											updatePost(idx);
-											disableUpdate(idx);
-										}}
-									>
-										Update
-									</button>
-								</nav>
-							</article>
-						);
-					} else {
-						return (
-							<article key={idx}>
-								<div className='txt'>
-									<h2>{post.title}</h2>
-									<p>{post.content}</p>
-									<p>{`글 작성일 : ${year}-${month}-${date}`}</p>
-									<p>{`글 작성시간 : ${hour}:${min}:${sec}`}</p>
-								</div>
-
-								<nav className='btnSet'>
-									<button onClick={() => enableUpdate(idx)}>Edit</button>
-									<button onClick={() => deletePost(idx)}>Delete</button>
-								</nav>
-							</article>
-						);
-					}
-
-				})}
-			</div>
 		</Layout>
 	);
 }

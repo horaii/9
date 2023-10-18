@@ -1,69 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=AR+One+Sans&family=Lato&family=Noto+Sans+KR:wght@100;300&family=Orbitron&family=Roboto:wght@100&display=swap');
+.layout.Community{
+	overflow: hidden;
+	transition: 1s;
+	&:hover{
+		.box{
+			transform: translateY(0);
+			
+		}
+		
+	}
+}
+
 .Community {
-	.content {
-		.inputBox {
-			width: 100%;
-			border: 1px solid #aaa;
-			padding: 50px;
-			margin-bottom: 50px;
-			input[type='text'],
-			textarea {
-				width: 50%;
-				padding: 8px 10px;
-				border: 1px solid #aaa;
-				resize: none;
-				margin-bottom: 10px;
-				background: #f0fdff;
+	background: #fff;
+		figure{
+			background-color: #1EC800;
+			
+		}
+		.content{
+			h1{
+				color: #1EC800;
 			}
-			.btnSet {
-				button {
-					width: 150px;
-					height: 30px;
-					display: inline-block;
-					border: none;
-					background: #555;
-					margin-right: 20px;
-					color: #fff;
+		}
+		
+		
+	.content {
+		.box{
+			animation: pop 1s forwards;
+			// transform: translateY(200%);
+			transition: 1s;
+			button{
+				font: 1rem/1 'Noto Sans Korean';
+				color: 333;
+				border: none;
+				border-bottom: 1px solid #333;
+				margin-bottom: 20px;
+				cursor: pointer;
+
+				&:hover{
+					color: hotpink;
+					border-bottom: 1px solid hotpink;
+				}
+			}
+			.inputBox {
+				width: 100%;
+				border: 1px solid #aaa;
+				padding: 50px;
+				margin-bottom: 50px;
+				input[type='text'],
+				textarea {
+					width: 50%;
+					padding: 8px 10px;
+					border: 1px solid #aaa;
+					resize: none;
+					margin-bottom: 10px;
+					background: #f0fdff;
+				}
+				.btnSet {
+					button {
+						width: 150px;
+						height: 30px;
+						display: inline-block;
+						border: none;
+						background: #555;
+						margin-right: 20px;
+						color: #fff;
+						cursor: pointer;
+					}
+				}
+			}
+
+			.showBox {
+				width: 100%;
+				border-top: 3px solid #555;
+				padding: 50px;
+
+				article {
+					border-bottom: 1px solid #000;
+					width: 100%;
+					transition: 0.5s;
+					padding: 30px;
+					display: flex;
+					justify-content: space-between;
+					align-content: center;
+					flex-wrap: wrap;
 					cursor: pointer;
+					&:first-child{
+						border-top: 1px solid #000;
+					}
+
+					.txtBox{
+						border-top: 1px solid #555;
+						margin-top: 20px;
+
+						div{
+							margin-top: 20px;
+							margin-bottom: 20px;
+						}
+					}
+
+					.txt {
+						width: 100%;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						h2{
+							transition: 1s;
+						}
+						
+						&:hover h2{
+							border-bottom: 1px solid #000;
+							
+						}
+
+
+						div{
+							display: flex;
+							gap: 10px;
+						}
+					}
+					.btnSet {
+						width: 100%;
+						display: flex;
+						gap: 20px;
+						align-items: center;
+						justify-content: flex-start;
+
+						button {
+							border: none;
+							background: transparent;
+							cursor: pointer;
+							&:nth-of-type(1) {
+								color: orange;
+								transition: 0.5s;
+
+								&:hover{
+									transform: scale(1.2);
+								}
+							}
+							&:nth-of-type(2) {
+								color: orangered;
+								transition: 0.5s;
+
+								&:hover{
+									transform: scale(1.2);
+								}
+							}
+						}
+					}
 				}
 			}
 		}
+	}
+}
+@keyframes pop {
+    0%{
+        transform: translateY(200%);
+    }
+    100%{transform: translateY(0);}
+}
 
-		.showBox {
-			width: 100%;
-			border: 1px solid #aaa;
-			padding: 50px;
-
-			article {
-				background: #fff;
-				padding: 30px;
-				margin-bottom: 40px;
-				display: flex;
-				justify-content: space-between;
-				align-content: center;
-				flex-wrap: wrap;
-
-				.txt {
-					width: 88%;
-					h2 {
-						margin-bottom: 10px;
-					}
-				}
-				.btnSet {
+//tablet
+.tablet,
+.mobile {
+	.Community {
+		.content {
+			.inputBox {
+				input[type='text'],
+				textarea {
 					width: 100%;
-					display: flex;
-					gap: 20px;
-					align-items: center;
-					justify-content: flex-end;
+				}
 
+				.btnSet {
+					display: flex;
+					justify-content: space-between;
 					button {
-						border: none;
-						background: transparent;
-						cursor: pointer;
-						&:nth-of-type(1) {
-							color: orange;
-						}
-						&:nth-of-type(2) {
-							color: orangered;
+						width: 47%;
+						margin-right: 3%;
+
+						&:last-child {
+							margin-right: 0%;
 						}
 					}
 				}

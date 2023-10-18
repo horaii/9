@@ -1,17 +1,6 @@
 .layout.Youtube{
-	overflow: hidden;.layout.Department{
-        overflow: hidden;
-        filter: grayscale(1);
-        transition: 1s;
-        &:hover{
-            filter: grayscale(0);
-            .memberBox{
-                transform: translateY(0);
-                
-            }
-            
-        }
-    }
+	overflow: hidden;
+   
 	&:hover{
 		.wrap{
 			transform: translateY(0);
@@ -29,11 +18,12 @@
     }
     .content{
 		h1{
-             text-align: center;
+            text-align: center;
 			color: #c4302b;
 		}
 	}
     .wrap{
+        animation: pop 1s forwards;
         position:fixed; 
         width: 100%; height: 100%;
         background:#000; 
@@ -102,4 +92,53 @@
     0%{transform: rotateY(0deg);}
 
     100%{transform: rotateY(360deg);}
+}
+@keyframes pop {
+    0%{
+        transform: translateY(200%);
+    }
+    100%{transform: translateY(0);}
+}
+
+//tablet
+.tablet,
+.mobile {
+	.Youtube {
+		.content {
+			article {
+				flex-wrap: wrap;
+
+				&:nth-of-type(even) {
+					flex-direction: row;
+				}
+
+				.titBox {
+					width: 48%;
+				}
+				.conBox {
+					width: 48%;
+				}
+				.picBox {
+					width: 100%;
+					margin-top: 30px;
+				}
+			}
+		}
+	}
+}
+
+//mobile
+.mobile {
+	.Youtube {
+		.content {
+			article {
+				.titBox {
+					width: 100%;
+				}
+				.conBox {
+					width: 100%;
+				}
+			}
+		}
+	}
 }
