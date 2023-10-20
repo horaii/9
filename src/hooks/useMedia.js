@@ -5,7 +5,6 @@ export const useMedia = (opt) => {
 	const defOpt = { mobile: 640, tablet: 1000, laptop: 1400 };
 	//해당 커스텀훅 호출시 특정 옵션이 전달되면 해당값으로 defOpt값을 덮어쓰기해서 합침
 	const result = { ...defOpt, ...opt };
-	console.log(result);
 	const [Type, setType] = useState('');
 
     //합쳐진 미디어쿼리 수치값과 현재 브라우저 넓이값을 비교해서 Type의 문자값을 변경해주는 함수

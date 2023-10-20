@@ -1,18 +1,18 @@
 import Layout from '../../common/layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './Detail.scss';
 
 function Detail() {
-	//url로 전단될 parameter값을 비구조화할당으로 받을 수 있음
 	const { id } = useParams();
 	const [Data, setData] = useState(null);
+	const [TOpen, setTOpen] = useState(false)
+	const desc = Data?.description
+	const refInfo = useRef(null)
 
 	useEffect(() => {
 		const api_key = process.env.REACT_APP_YOUTUBE_API;
 		const baseURL = 'https://www.googleapis.com/youtube/v3/playlistItems';
-		//youtbue 페이지와는 다르게 요청 url의 옵션값이 playListId가 아닌 id방식
-		//전체 목록이 아닌 특정 id값에 대한 유튜브 데이터 객체 하나만 받아오기 위함
 		fetch(`${baseURL}?key=${api_key}&id=${id}&part=snippet`)
 			.then((data) => data.json())
 			.then((json) => {
@@ -20,19 +20,35 @@ function Detail() {
 				setData(json.items[0].snippet);
 			});
 	}, []);
+		if(TOpen===true)refInfo.current?.classList.remove('on')
+		else refInfo.current?.classList.add('on')
 
 	return (
 		<Layout title={'Detail'}>
-			<h2>{Data?.title}</h2>
-			<p>{Data?.description}</p>
+
 			<div className='vidBox'>
 				<iframe
 					src={`https://www.youtube.com/embed/${Data?.resourceId.videoId}`}
 					title='youtube'
 				></iframe>
+				<h2>{Data?.title}</h2>
+				<div
+					onClick={() => setTOpen(!TOpen)}
+					className='infoBox'
+					ref={refInfo}
+				>
+					{TOpen === true ?
+						<p>{desc}</p>
+						:
+						<p>{desc?.length > 100 ? desc.substr(0, 100) + '...' : desc}</p>
+					}
+				</div>
+
+
 			</div>
 		</Layout>
 	);
+	
 }
 
 export default Detail;

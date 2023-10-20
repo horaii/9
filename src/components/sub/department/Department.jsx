@@ -18,16 +18,6 @@ export default function Department() {
 		})
 		.catch((err) => console.log(err)); //json데이터 변환에 대한 응답 실패시
 	}, []);
-
-	const next = () => {
-		const wrap = refSliderWrap.current;
-		wrap.append(wrap.firstElementChild);
-	};
-	const prev = () => {
-		const wrap = refSliderWrap.current;
-		wrap.prepend(wrap.lastElementChild);
-	};
-
 	return (
 		<Layout title={'Department'}>
 			<div className='memberBox'>

@@ -5,6 +5,7 @@
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@reduxjs/toolkit": "^1.9.7",
+    "@tanstack/react-query": "^4.36.1",
     "autoprefixer": "^10.4.16",
     "axios": "^1.5.1",
     "clsx": "^2.0.0",
@@ -19,7 +20,8 @@
     "react-router-dom": "^5.3.1",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
-    "sass": "^1.51.0"
+    "sass": "^1.51.0",
+    "swiper": "^8.4.7"
   },
   "scripts": {
     "start": "react-scripts start",

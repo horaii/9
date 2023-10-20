@@ -1,6 +1,8 @@
 import Layout from '../../common/layout/Layout';
+import { useDebounce } from '../../../hooks/useDebounce';
 import './Members.scss';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
 export default function Members() {
 	const initVal = {
 		userid: '',
@@ -12,31 +14,26 @@ export default function Members() {
 		edu: '',
 		comments: '',
 	};
-	const refCheckGroup = useRef(null)
-	const refRadioGroup = useRef(null)
+	const refCheckGroup = useRef(null);
+	const refRadioGroup = useRef(null);
 	const refSelGroup = useRef(null);
 	const [Val, setVal] = useState(initVal);
 	const [Errs, setErrs] = useState({});
-
+	const DebouncedVal = useDebounce(Val);
 	const resetForm = (e) => {
 		e.preventDefault();
 		setVal(initVal);
-
-
 		[refCheckGroup, refRadioGroup].forEach((el) =>
 			el.current
 				.querySelectorAll('input')
-				.forEach((input) => (input.checked = false)
-				)
-		)
+				.forEach((input) => (input.checked = false))
+		);
 		refSelGroup.current.value = '';
 	};
-
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setVal({ ...Val, [name]: value });
 	};
-
 	const handleRadio = (e) => {
 		const { name, checked } = e.target;
 		setVal({ ...Val, [name]: checked });
@@ -48,11 +45,10 @@ export default function Members() {
 		inputs.forEach((input) => input.checked && (isChecked = true));
 		setVal({ ...Val, [name]: isChecked });
 	};
-
 	const check = (value) => {
-		const num = /[0-9]/; //0-9까지의 모든 값을 정규표현식으로 범위지정
-		const txt = /[a-zA-Z]/; //대소문자 구분없이 모든 문자 범위지정
-		const spc = /[!@#$%^*()_]/; //모든 특수문자 지정
+		const num = /[0-9]/;
+		const txt = /[a-zA-Z]/;
+		const spc = /[!@#$%^*()_]/;
 		const errs = {};
 		if (value.userid.length < 5) {
 			errs.userid = '아이디는 최소 5글자 이상 입력하세요.';
@@ -84,7 +80,6 @@ export default function Members() {
 				}
 			}
 		}
-
 		//성별인증
 		if (!value.gender) {
 			errs.gender = '성별은 필수 체크항목입니다.';
@@ -101,10 +96,8 @@ export default function Members() {
 		if (value.comments.length < 10) {
 			errs.comments = '남기는말은 10글자 이상 입력하세요.';
 		}
-
 		return errs;
 	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (Object.keys(check(Val)).length === 0) {
@@ -113,6 +106,16 @@ export default function Members() {
 			setErrs(check(Val));
 		}
 	};
+
+	const showCheck = () => {
+		setErrs(check(DebouncedVal));
+	};
+
+	useEffect(() => {
+		console.log('Val state값 변경에 의해서 showCheck함수 호출');
+		showCheck();
+	}, [DebouncedVal]);
+
 	return (
 		<Layout title={'Members'}>
 			<form onSubmit={handleSubmit}>
@@ -132,6 +135,7 @@ export default function Members() {
 										name='userid'
 										value={Val.userid}
 										onChange={handleChange}
+										placeholder='아이디를 입력하세요.'
 									/>
 									{Errs.userid && <p>{Errs.userid}</p>}
 								</td>
@@ -148,8 +152,7 @@ export default function Members() {
 										name='pwd1'
 										value={Val.pwd1}
 										onChange={handleChange}
-
-										placeholder='아이디를 입력하세요.'
+										placeholder='비밀번호를 입력하세요.'
 									/>
 									{Errs.pwd1 && <p>{Errs.pwd1}</p>}
 								</td>
@@ -188,7 +191,6 @@ export default function Members() {
 									{Errs.email && <p>{Errs.email}</p>}
 								</td>
 							</tr>
-
 							{/* gender */}
 							<tr>
 								<th>Gender</th>
@@ -200,7 +202,6 @@ export default function Members() {
 										id='female'
 										onChange={handleRadio}
 									/>
-
 									<label htmlFor='male'>male</label>
 									<input
 										type='radio'
@@ -211,7 +212,6 @@ export default function Members() {
 									{Errs.gender && <p>{Errs.gender}</p>}
 								</td>
 							</tr>
-
 							{/* interests */}
 							<tr>
 								<th>Interests</th>
@@ -223,7 +223,6 @@ export default function Members() {
 										name='interests'
 										onChange={handleCheck}
 									/>
-
 									<label htmlFor='game'>game</label>
 									<input
 										type='checkbox'
@@ -231,7 +230,6 @@ export default function Members() {
 										name='interests'
 										onChange={handleCheck}
 									/>
-
 									<label htmlFor='music'>music</label>
 									<input
 										type='checkbox'
@@ -263,7 +261,6 @@ export default function Members() {
 									{Errs.edu && <p>{Errs.edu}</p>}
 								</td>
 							</tr>
-
 							{/* comments */}
 							<tr>
 								<th>
@@ -282,7 +279,6 @@ export default function Members() {
 									{Errs.comments && <p>{Errs.comments}</p>}
 								</td>
 							</tr>
-
 							{/* btnSet */}
 							<tr>
 								<th colSpan='2'>
@@ -297,7 +293,6 @@ export default function Members() {
 		</Layout>
 	);
 }
-
 /*
 	react-hook-form을 쓰지 않고 직접 기능을 만들었냐?
 	-- 라이브러리는 언제든지 연결할 수 있는건데, 아직 배우는 입장이기 때문에 부족하나마 어떤 인증로직이 처리되는지 직접 만들어 보고 싶었다.

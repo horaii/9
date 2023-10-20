@@ -159,6 +159,7 @@ export default function Contact() {
 		<Layout title={'Contact'}>
 			<div className='upperBox'>
 				<div id='mailBox'>
+				<h2>Send E-Mail</h2>
 					<form ref={form} onSubmit={sendEmail}>
 						<div className='upper'>
 							<span>
@@ -185,6 +186,7 @@ export default function Contact() {
 				</div>
 
 				<div id='etc'>
+					<h2>Information</h2>
 					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit, id
 					nesciunt? Dolores architecto quas voluptate dolorem impedit ab dolore,
 					itaque blanditiis iste esse delectus libero ipsum repudiandae porro

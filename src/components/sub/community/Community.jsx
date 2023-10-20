@@ -1,6 +1,7 @@
 import Layout from '../../common/layout/Layout';
 import './Community.scss';
 import { useRef, useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 export default function Community() {
 	const dummyData = [
         {
@@ -123,23 +124,29 @@ export default function Community() {
 		<Layout title={'Community'}>
 			<div className='box'>
 				<button onClick={() => { setWriteOn(!WriteOn) }}>{WriteOn ? '글닫기' : '글쓰기'}</button>
-				{WriteOn &&
-					<div className='inputBox'>
-						<input ref={refInput} type='text' placeholder='제목을 입력하세요.' />
-						<br />
-						<textarea
-							ref={refTextarea}
-							cols='30'
-							rows='3'
-							placeholder='본문을 입력하세요.'
-						></textarea>
-						<nav className='btnSet'>
-							<button onClick={resetForm}>cancel</button>
-							<button onClick={createPost}>write</button>
-						</nav>
-					</div>
-				}
-
+				<AnimatePresence>
+					{WriteOn &&
+							<motion.div 
+								initial={{}}
+								className='inputBox'
+								animate={{  }}
+								transition={{ duration: 1 }}
+							>
+								<input ref={refInput} type='text' placeholder='제목을 입력하세요.' />
+								<br />
+								<textarea
+									ref={refTextarea}
+									cols='30'
+									rows='3'
+									placeholder='본문을 입력하세요.'
+								></textarea>
+								<nav className='btnSet'>
+									<button onClick={resetForm}>cancel</button>
+									<button onClick={createPost}>write</button>
+								</nav>
+							</motion.div>
+					}
+				</AnimatePresence>
 				<div className='showBox'>
 					{Posts.map((post, idx) => {
 						const string = JSON.stringify(post.data);

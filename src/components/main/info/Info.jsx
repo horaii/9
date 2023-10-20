@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 function Info() {
     const { data } = useSelector((store) => store.flickr);
 	return (
-		<section className='info'>
+		<section className='info  myScroll'>
             <div className="wrap">
             {data.map((pic, idx) => {
 					if (idx >= 6) return null;

@@ -10,7 +10,7 @@ export default function Youtube() {
 
 	return (
 		<>
-			<Layout title={'Youtube'}>
+			<Layout title={'YouTube'}>
 				<main className='wrap'>
 					<section className='circle'>
 						{Youtube.map((data, idx) => {
@@ -21,19 +21,25 @@ export default function Youtube() {
 							return (
 								<article key={idx} >
 									<div className='picBox'>
-									<Link to={`/detail/${data.id}`}>
+										<Link to={`/detail/${data.id}`}>
 											<img
 												src={data.snippet.thumbnails.standard.url}
 												alt={data.title}
 											/>
+											<img
+												src={data.snippet.thumbnails.maxres.url}
+												alt={data.title}
+											/>
 										</Link>
 									</div>
-									<div className='titBox'>
-										<h2>{tit.length > 60 ? tit.substr(0, 60) + '...' : tit}</h2>
-									</div>
-									<div className='conBox'>
-										<p>{desc.length > 100 ? desc.substr(0, 100) + '...' : desc}</p>
-										<span>{date.split('T')[0].split('-').join('.')}</span>
+									<div className='txtBox'>
+										<div className='titBox'>
+											<h2>{tit.length > 60 ? tit.substr(0, 60) + '...' : tit}</h2>
+										</div>
+										<div className='conBox'>
+											<p>{desc.length > 100 ? desc.substr(0, 100) + '...' : desc}</p>
+											<span>{date.split('T')[0].split('-').join('.')}</span>
+										</div>
 									</div>
 								</article>
 							);

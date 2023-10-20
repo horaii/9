@@ -1,14 +1,13 @@
+
 .Gallery {
 	figure{
 		background: radial-gradient(circle farthest-corner at 32% 106%,#ffe17d 0%,#ffcd69 10%,#fa9137 28%,#eb4141 42%,transparent 82%) , linear-gradient(135deg,#234bd7 12%,#c33cbe 58%);
 	}
-	.content{
 		h1{
-			background: radial-gradient(circle farthest-corner at 32% 106%,#ffe17d 0%,#ffcd69 10%,#fa9137 28%,#eb4141 42%,transparent 82%) , linear-gradient(135deg,#234bd7 12%,#c33cbe 58%);
-			color: transparent;
-			background-clip: text;
+			// background: radial-gradient(circle farthest-corner at 32% 106%,#ffe17d 0%,#ffcd69 10%,#fa9137 28%,#eb4141 42%,transparent 82%) , linear-gradient(135deg,#234bd7 12%,#c33cbe 58%);
+			color: #eb4141;
+			// background-clip: text;
 		}
-	}
 	.picFrame {
 		width: 100%;
 		&::after {

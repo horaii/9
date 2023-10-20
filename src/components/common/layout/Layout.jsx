@@ -2,17 +2,28 @@
 	1.Layout.jsx를 왜 만들었는지 설명
 */
 
+import { useEffect, useRef } from 'react';
+import { useSplitText } from '../../../hooks/useSplitText';
 import './Layout.scss';
 
 export default function Layout({ title, children }) {
-	return (
-		<section className={`layout ${title} `}>
-			<figure></figure>
 
-			<div className='content'>
-				<h1>{title}</h1>
+	const refFrame = useRef(null);
+	const refTitle = useRef(null)
+	const splitText = useSplitText()
+
+	useEffect(()=>{
+		splitText(refTitle, 0.1, 0);
+		setTimeout(()=>{
+			refFrame.current.classList.add('on')
+		},300)
+	},[])
+
+	return (
+		<section className={`layout ${title} `} ref={refFrame}>
+				<h1 ref={refTitle}>{title}</h1>
+			<figure></figure>
 				{children}
-			</div>
 		</section>
 	);
 }

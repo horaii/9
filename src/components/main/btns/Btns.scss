@@ -1,0 +1,29 @@
+.scroll_navi {
+	position: fixed;
+	left: 50px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 5;
+
+	li {
+		width: 10px;
+		height: 10px;
+		background: #fff;
+		border: 1px solid #555;
+		transition: 0.5s;
+		cursor: pointer;
+		margin: 20px 0px;
+
+		&.on {
+			height: 100px;
+			background: #555;
+		}
+	}
+}
+
+.tablet,
+.mobile {
+	.scroll_navi {
+		display: none;
+	}
+}

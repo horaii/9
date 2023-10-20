@@ -1,26 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=AR+One+Sans&family=Lato&family=Noto+Sans+KR:wght@100&family=Orbitron&family=Roboto:wght@100&display=swap');
-.layout.Department{
-	overflow: hidden;
-	filter: grayscale(1);
-	transition: 1s;
-	&:hover{
-		filter: grayscale(0);
-		.memberBox{
-			transform: translateY(0);
-			
-		}
-		
-	}
-}
 .Department {
 	figure{
         background: #38aeea;
     }
-    .content{
 		h1{
 			color: #38aeea;
 		}
-	}
 	
 	.historyBox {
 		margin: 100px 0px;
@@ -55,7 +40,7 @@
 	}
 
 	.memberBox {
-		animation: pop 1s forwards;
+		animation: pop 2s forwards;
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;

@@ -12,19 +12,15 @@
 }
 
 .Community {
-	background: #fff;
 		figure{
 			background-color: #1EC800;
 			
 		}
-		.content{
 			h1{
 				color: #1EC800;
 			}
-		}
 		
 		
-	.content {
 		.box{
 			animation: pop 2s forwards ;
 			// transform: translateY(200%);
@@ -151,7 +147,6 @@
 				}
 			}
 		}
-	}
 }
 
 
@@ -159,7 +154,6 @@
 .tablet,
 .mobile {
 	.Community {
-		.content {
 			.inputBox {
 				input[type='text'],
 				textarea {
@@ -180,7 +174,6 @@
 				}
 			}
 		}
-	}
 }
 @keyframes pop {
     0%{
