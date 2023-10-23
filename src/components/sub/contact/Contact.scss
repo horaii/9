@@ -159,23 +159,12 @@
 				padding-top: 5px;
 				padding-right: 5px;
 				padding-left: 5px;
-				box-shadow: 3px 3px 3px 1px rgba($color: #000000, $alpha: 0.5);
+				box-shadow: 3px 3px 3px 1px rgba($color: #000000, $alpha: 0.2);
 				-webkit-font-smoothing: antialiased;
 				cursor: pointer;
 				color: #000;
 				font: bold 1rem/1 'GmarketSansMedium';
 				background-color: #fff;
-
-				&::after{
-					content: '';
-					display: block;
-					width: auto;
-					height: 1px;
-					background: #444;
-					bottom: 0;
-					left: 0;
-					margin-top: 3px;
-				}
 			}
 		}
 		.container {
@@ -217,7 +206,7 @@
 				padding-top: 5px;
 				padding-right: 5px;
 				padding-left: 5px;
-				box-shadow: 3px 3px 3px 1px rgba($color: #000000, $alpha: 0.5);
+				box-shadow: 3px 3px 3px 1px rgba($color: #000000, $alpha: 0.2);
 				-webkit-font-smoothing: antialiased;
 				cursor: pointer;
 				color: #000;
@@ -228,6 +217,23 @@
 			li.on {
 				color: hotpink;
 			}
+		}
+	}
+	.mail{
+		margin-top: 20px;
+		background: none;
+		border: none;
+		font: bold 1.2rem/1 'GmarketSansMedium';
+
+		&::after{
+			content: '';
+			display: block;
+			width: 155px;
+			height: 2px;
+			background: #444;
+			position: absolute;
+			bottom: -8px;
+			left: 0;
 		}
 	}
 }

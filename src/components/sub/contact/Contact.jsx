@@ -196,7 +196,7 @@ export default function Contact() {
 					))}
 				</ul>
 			</div>
-			<button onClick={()=>setIsMail(!IsMail)}>Mail inquiry&ect</button>
+			<button className='mail' onClick={()=>setIsMail(!IsMail)}>Mail inquiry&ect</button>
 			{IsMail &&
 				<div className='upperBox'>
 					<div id='mailBox'>

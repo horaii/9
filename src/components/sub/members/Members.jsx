@@ -142,9 +142,9 @@ export default function Members() {
 						<tbody>
 							{/* userid */}
 							<tr>
-								<th scope='row'>
-									<label htmlFor='userid'>Userid</label>
-								</th>
+								<span>user id</span>
+							</tr>
+							<tr>
 								<td>
 									<input
 										type='text'
@@ -159,9 +159,9 @@ export default function Members() {
 							</tr>
 							{/* password */}
 							<tr>
-								<th scope='row'>
-									<label htmlFor='pwd1'>Password</label>
-								</th>
+								<span>password</span>
+							</tr>
+							<tr>
 								<td>
 									<input
 										type='password'
@@ -176,9 +176,9 @@ export default function Members() {
 							</tr>
 							{/* re password */}
 							<tr>
-								<th scope='row'>
-									<label htmlFor='pwd2'>Re-Password</label>
-								</th>
+								<span>re password</span>
+							</tr>
+							<tr>
 								<td>
 									<input
 										type='password'
@@ -193,9 +193,9 @@ export default function Members() {
 							</tr>
 							{/* email */}
 							<tr>
-								<th scope='row'>
-									<label htmlFor='email'>E-mail</label>
-								</th>
+								<span>email</span>
+							</tr>
+							<tr>
 								<td>
 									<input
 										type='text'
@@ -210,7 +210,9 @@ export default function Members() {
 							</tr>
 							{/* gender */}
 							<tr>
-								<th>Gender</th>
+								<span>gender</span>
+							</tr>
+							<tr>
 								<td ref={refRadioGroup}>
 									<label htmlFor='female'>female</label>
 									<input
@@ -233,7 +235,9 @@ export default function Members() {
 							</tr>
 							{/* interests */}
 							<tr>
-								<th>Interests</th>
+								<span>interests</span>
+							</tr>
+							<tr>
 								<td ref={refCheckGroup}>
 									<label htmlFor='sports'>sports</label>
 									<input
@@ -264,9 +268,9 @@ export default function Members() {
 							</tr>
 							{/* education */}
 							<tr>
-								<th>
-									<label htmlFor='edu'>Education</label>
-								</th>
+								<span>education</span>
+							</tr>
+							<tr>
 								<td>
 									<select
 										name='edu'
@@ -274,7 +278,7 @@ export default function Members() {
 										onChange={handleChange}
 										ref={refSelGroup}
 									>
-										<option value=''>최종학력 선택하세요</option>
+										<option value=''>최종학력을 선택하세요</option>
 										<option value='elementary-school'>초등학교 졸업</option>
 										<option value='middle-school'>중학교 졸업</option>
 										<option value='high-school'>고등학교 졸업</option>
@@ -285,9 +289,9 @@ export default function Members() {
 							</tr>
 							{/* comments */}
 							<tr>
-								<th>
-									<label htmlFor='comments'>Comments</label>
-								</th>
+								<span>comments</span>
+							</tr>
+							<tr>
 								<td>
 									<textarea
 										name='comments'

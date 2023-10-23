@@ -1,4 +1,11 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 .Members {
+	font-family: 'Pretendard-Regular';
 	table {
 		width: 100%;
 		border: none;
@@ -28,8 +35,7 @@
 		}
 		td {
 			border: none;
-			border-bottom: 1px solid #bbb;
-			border-left: 1px solid #bbb;
+			
 			padding: 15px 30px;
 
 			input[type='text'],
@@ -37,9 +43,11 @@
 			textarea,
 			select {
 				width: 40%;
+				height: 50px;
 				border: 1px solid #aaa;
+				border-radius: 15px;
 				padding: 6px 10px;
-				background: #f3ffff;
+				background: #efefef;
 				resize: none;
 			}
 			input[type='checkbox'],
