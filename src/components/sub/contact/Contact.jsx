@@ -1,7 +1,7 @@
 import Layout from '../../common/layout/Layout';
 import './Contact.scss';
 import emailjs from '@emailjs/browser';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 
 export default function Contact() {
 	const form = useRef(null);
@@ -11,6 +11,7 @@ export default function Contact() {
 	const [Traffic, setTraffic] = useState(false);
 	const [Index, setIndex] = useState(0);
 	const [IsMap, setIsMap] = useState(true);
+	const [IsMail, setIsMail] = useState(false)
 
 	//kakao api를 cdn방식으로 불러오고 있기 때문에 리액트 컴포넌트가 실행되면 window객체에서 직접 비구조화 할당으로 kakao객체를 뽑아옴
 	const { kakao } = window;
@@ -43,24 +44,26 @@ export default function Contact() {
 		},
 	]);
 
-	//위의 정보값을 활용한 마커 객체 생성
-	const marker = new kakao.maps.Marker({
-		position: info.current[Index].latlng,
-		image: new kakao.maps.MarkerImage(
-			info.current[Index].imgSrc,
-			info.current[Index].imgSize,
-			info.current[Index].imgPos
-		),
-	});
+
 
 	//지도위치를 중심으로 이동시키는 핸들러 함수 제작
-	const setCenter = () => {
+	const setCenter = useCallback(() => {
 		console.log('지도화면에서 마커 가운데 보정');
 		// 지도 중심을 이동 시킵니다
 		instance.current.setCenter(info.current[Index].latlng);
-	};
+	}, [Index]);
 
 	useEffect(() => {
+		//위의 정보값을 활용한 마커 객체 생성
+		const marker = new kakao.maps.Marker({
+			position: info.current[Index].latlng,
+			image: new kakao.maps.MarkerImage(
+				info.current[Index].imgSrc,
+				info.current[Index].imgSize,
+				info.current[Index].imgPos
+			),
+		});
+
 		//Index값이 변경될때마다 새로운 지도 레이어가 중첩되므로
 		//일단은 기존 map안의 모든 요소를 없애서 초기화
 		map.current.innerHTML = '';
@@ -102,14 +105,14 @@ export default function Contact() {
 		return () => {
 			window.removeEventListener('resize', setCenter);
 		};
-	}, [Index]); //Index값이 변경될때마다 지도화면이 다시 갱신되어야 하므로 Index값을 의존성 배열에 등록
+	}, [Index, kakao, setCenter]); //Index값이 변경될때마다 지도화면이 다시 갱신되어야 하므로 Index값을 의존성 배열에 등록
 
 	useEffect(() => {
 		//traffic 값이 바뀔때마다 실행될 구문
 		Traffic
 			? instance.current.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC)
 			: instance.current.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
-	}, [Traffic]);
+	}, [Traffic, kakao]);
 
 	const resetForm = () => {
 		const nameForm = form.current.querySelector('.nameEl');
@@ -157,42 +160,8 @@ export default function Contact() {
 
 	return (
 		<Layout title={'Contact'}>
-			<div className='upperBox'>
-				<div id='mailBox'>
-				<h2>Send E-Mail</h2>
-					<form ref={form} onSubmit={sendEmail}>
-						<div className='upper'>
-							<span>
-								<label>Name</label>
-								<input type='text' name='user_name' className='nameEl' />
-							</span>
+			
 
-							<span>
-								<label>Email</label>
-								<input type='email' name='user_email' className='emailEl' />
-							</span>
-						</div>
-
-						<div className='lower'>
-							<label>Message</label>
-							<textarea name='message' className='msgEl' />
-						</div>
-
-						<div className='btnSet'>
-							<input type='reset' value='Cancel' />
-							<input type='submit' value='Send' />
-						</div>
-					</form>
-				</div>
-
-				<div id='etc'>
-					<h2>Information</h2>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit, id
-					nesciunt? Dolores architecto quas voluptate dolorem impedit ab dolore,
-					itaque blanditiis iste esse delectus libero ipsum repudiandae porro
-					nulla fuga.
-				</div>
-			</div>
 
 			<div id='mapBox'>
 				<div className='btnSet'>
@@ -227,6 +196,45 @@ export default function Contact() {
 					))}
 				</ul>
 			</div>
+			<button onClick={()=>setIsMail(!IsMail)}>Mail inquiry&ect</button>
+			{IsMail &&
+				<div className='upperBox'>
+					<div id='mailBox'>
+						<h2>Send E-Mail</h2>
+						<form ref={form} onSubmit={sendEmail}>
+							<div className='upper'>
+								<span>
+									<label>Name</label>
+									<input type='text' name='user_name' className='nameEl' />
+								</span>
+
+								<span>
+									<label>Email</label>
+									<input type='email' name='user_email' className='emailEl' />
+								</span>
+							</div>
+
+							<div className='lower'>
+								<label>Message</label>
+								<textarea name='message' className='msgEl' />
+							</div>
+
+							<div className='btnSet'>
+								<input type='reset' value='Cancel' />
+								<input type='submit' value='Send' />
+							</div>
+						</form>
+					</div>
+
+					<div id='etc'>
+						<h2>Information</h2>
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit, id
+						nesciunt? Dolores architecto quas voluptate dolorem impedit ab dolore,
+						itaque blanditiis iste esse delectus libero ipsum repudiandae porro
+						nulla fuga.
+					</div>
+				</div>
+			}
 		</Layout>
 	);
 }

@@ -2,8 +2,9 @@ import './Visual.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState } from 'react';
 import 'swiper/css';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import { useYoutubeQuery } from '../../../hooks/useYoutube';
+
 function Visual() {
 	const [Index, setIndex] = useState(0);
 	const { data, isSuccess } = useYoutubeQuery();
@@ -20,7 +21,7 @@ function Visual() {
 		<section className='visual'>
 			<div className='titBox'>
 				<ul>
-				{isSuccess &&
+					{isSuccess &&
 						data.map((tit, idx) => {
 							if (idx >= 7) return null;
 							return (
@@ -28,9 +29,7 @@ function Visual() {
 									<h3>{tit.snippet.title}</h3>
 									<p>{tit.snippet.description.substr(0, 300) + '...'}</p>
 									<button>
-										<Link to={`/detail/${tit.id}`}>
-											<p>View Deatil</p>
-										</Link>
+										<Link to={`/detail/${tit.id}`}>View Deatil</Link>
 									</button>
 								</li>
 							);
@@ -55,7 +54,7 @@ function Visual() {
 					},
 				}}
 			>
-							{isSuccess &&
+				{isSuccess &&
 					data.map((vid, idx) => {
 						if (idx >= 5) return null;
 						return (
@@ -79,4 +78,5 @@ function Visual() {
 		</section>
 	);
 }
+
 export default Visual;

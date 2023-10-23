@@ -3,7 +3,7 @@ import './Community.scss';
 import { useRef, useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 export default function Community() {
-	const dummyData = [
+	const dummyData = useRef([
         {
             title: 'title1',
             content: 'Here comes content discription in detail1',
@@ -24,7 +24,7 @@ export default function Community() {
             content: 'Here comes content discription in detail4',
             data: new Date(),
         },
-    ]
+    ]);
 	//로컬데이터의 값을 parsing해서 반환하는 함수
 	const getLocalData = () => {
 		const data = localStorage.getItem('post');

@@ -14,13 +14,17 @@ import Menu from './components/common/menu/Menu'
 ;import Footer from './components/common/footer/Footer';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useGlobalData } from './hooks/useGlobalContext';
+import './styles/index.css';
 
 function App() {
 	const queryClient = new QueryClient();
+	const { Theme } = useGlobalData();
 	
 
 	return (
 		<QueryClientProvider client={queryClient}>
+			<main className={`${useMedia()} ${Theme ? 'dark' : 'light'}`}></main>
 			<main className={useMedia()}>
 				<Switch>
 					<Route exact path='/'>

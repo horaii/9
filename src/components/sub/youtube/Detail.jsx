@@ -19,9 +19,9 @@ function Detail() {
 				console.log(json.items[0].snippet);
 				setData(json.items[0].snippet);
 			});
-	}, []);
-		if(TOpen===true)refInfo.current?.classList.remove('on')
-		else refInfo.current?.classList.add('on')
+	}, [id]);
+	if (TOpen === true) refInfo.current?.classList.remove('on')
+	else refInfo.current?.classList.add('on')
 
 	return (
 		<Layout title={'Detail'}>
@@ -48,7 +48,7 @@ function Detail() {
 			</div>
 		</Layout>
 	);
-	
+
 }
 
 export default Detail;

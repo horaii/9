@@ -7,13 +7,12 @@ import Layout from '../../common/layout/Layout';
 import Modal from '../../common/modal/Modal';
 import './Gallery.scss';
 import { useState, useRef, } from 'react';
-import { useDispatch } from 'react-redux';
 import Masonry from 'react-masonry-component';
-import { open } from '../../../redux/modalSlice';
 import { useFlickrQuery } from '../../../hooks/useFlickr';
+import { useGlobalData } from '../../../hooks/useGlobalContext';
 
 export default function Gallery() {
-	const dispatch = useDispatch();
+	const { setModalOpen } = useGlobalData();
 	const refInput = useRef(null);
 	const refBtnSet = useRef(null);
 	const [ActiveURL, setActiveURL] = useState('');
@@ -101,7 +100,7 @@ export default function Gallery() {
 												alt={`https://live.staticflickr.com/${data.server}/${data.id}_${data.secret}_b.jpg`}
 												onClick={(e) => {
 													setActiveURL(e.target.getAttribute('alt'));
-													dispatch(open());
+													setModalOpen(true);
 												}}
 											/>
 											<h2>{data.title}</h2>

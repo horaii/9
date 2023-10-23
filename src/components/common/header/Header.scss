@@ -5,15 +5,19 @@ header {
 	border-bottom: 1px solid #aaa;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	margin: 0 auto;
+
 	h1 {
 		font-weight: bold;
 		font-size: 1.4rem;
 	}
+
 	ul {
 		display: flex;
 		gap: 50px;
 		align-items: center;
+
 		li a {
 			&.active {
 				color: orangered;
@@ -23,7 +27,12 @@ header {
 	.bars {
 		display: none;
 	}
+	.btnTheme {
+		cursor: pointer;
+		color: red;
+	}
 }
+
 .tablet,
 .mobile {
 	.header {

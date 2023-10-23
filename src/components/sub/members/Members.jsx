@@ -1,14 +1,14 @@
-import Layout from '../../common/layout/Layout';
 import { useDebounce } from '../../../hooks/useDebounce';
+import Layout from '../../common/layout/Layout';
 import './Members.scss';
 import { useState, useRef, useEffect } from 'react';
-
 //해당 컴포넌트에 메모리 누수 콘솔오류가 뜨는 이유 (memory leak);
 //Errs스테이트에 값이 담기는 시점이 useDebounce에 의해서 0.5초 이후인데
 //Members 컴포넌트 접속하자마자 0.5초안에 다른 페이지로 넘어가면
 //아직 state에 값이 담기지 않았는데 unmount된 경우이므로 뜨는 오류
 //컴포넌트 unmount시 값을 Mounted값을 false로 변경해주고 해당 값이 true일때에만 state변경처리
 export default function Members() {
+	//console.log('test');
 	const initVal = {
 		userid: '',
 		pwd1: '',
@@ -25,10 +25,10 @@ export default function Members() {
 	const [Val, setVal] = useState(initVal);
 	const [Errs, setErrs] = useState({});
 	const [Mounted, setMounted] = useState(true);
-
 	//기존의 onchange이벤트가 발생할때마다 변경되는 Val값을 useDebounce를 이용해서
 	//Debouncing이 적용된 또다른 State를 전달 받음
 	const DebouncedVal = useDebounce(Val);
+	console.log(DebouncedVal);
 	const resetForm = (e) => {
 		e.preventDefault();
 		setVal(initVal);
@@ -52,7 +52,9 @@ export default function Members() {
 		inputs.forEach((input) => input.checked && checkArr.push(input.value));
 		setVal({ ...Val, [name]: checkArr });
 	};
+
 	const check = (value) => {
+		console.log('check', value);
 		const num = /[0-9]/;
 		const txt = /[a-zA-Z]/;
 		const spc = /[!@#$%^*()_]/;
@@ -103,6 +105,7 @@ export default function Members() {
 		if (value.comments.length < 10) {
 			errs.comments = '남기는말은 10글자 이상 입력하세요.';
 		}
+		console.log(errs);
 		return errs;
 	};
 	const handleSubmit = (e) => {
@@ -113,21 +116,22 @@ export default function Members() {
 			setErrs(check(Val));
 		}
 	};
-
-	const showCheck = () => {
-		Mounted && setErrs(check(DebouncedVal));
-	};
-
 	//의존성 배열에 Debouncing이 적용된 state값을 등록해서
 	//함수의 핸들러함수 호출의 빈도를 줄여줌
 	//useDebounce는 state의 변경횟수 자체를 줄이는게 아니라.
 	//해당 state에 따라 호출되는 함수의 빈도를 줄임[]
 	useEffect(() => {
-		console.log('Val state값 변경에 의해서 showCheck함수 호출');
+		const showCheck = () => {
+			Mounted && setErrs(check(DebouncedVal));
+		};
+		//console.log('Val state값 변경에 의해서 showCheck함수 호출');
 		showCheck();
-		console.log(DebouncedVal);
+	}, [DebouncedVal, Mounted]);
+
+	//컴포넌트 언마운트시 한번만 Mounted값을 변경해야 되므로 의존성배열이 비어있는 상태에서 clean-up함수 리턴
+	useEffect(() => {
 		return () => setMounted(false);
-	}, [DebouncedVal]);
+	}, []);
 
 	return (
 		<Layout title={'Members'}>
@@ -213,7 +217,7 @@ export default function Members() {
 										type='radio'
 										name='gender'
 										id='female'
-										defaultValue='male'
+										defaultValue='female'
 										onChange={handleChange}
 									/>
 									<label htmlFor='male'>male</label>
