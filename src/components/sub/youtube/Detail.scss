@@ -1,7 +1,26 @@
+@font-face {
+    font-family: 'youtube-sans-light';
+    src: url('./youtube-sans-light.ttf');
+}
+@font-face {
+    font-family: 'youtube-sans-medium';
+    src: url('./youtube-sans-medium.ttf');
+}
+@font-face {
+    font-family: 'youtube-sans-bold';
+    src: url('./youtube-sans-bold.ttf');
+}
 .Detail {
-	width: 99.5vw;
+	width: 98vw;
 	height: 160vh;
 	overflow: hidden;
+		figure{
+			background: #c4302b;
+		}
+		h1{
+			color: #c4302b;
+			font-family: 'youtube-sans-medium';
+		}
 		.vidBox {
 			width: 100%;
 			height: 100vh;

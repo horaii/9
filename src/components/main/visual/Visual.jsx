@@ -1,29 +1,40 @@
 import './Visual.scss';
-import { useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState } from 'react';
 import 'swiper/css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useYoutubeQuery } from '../../../hooks/useYoutube';
 function Visual() {
-	const { data } = useSelector((store) => store.youtube);
 	const [Index, setIndex] = useState(0);
+	const { data, isSuccess } = useYoutubeQuery();
+
+	/*
+		data: react-query가 반환데이터
+		isError: 데이터 응답 실패시 true,
+		isSucess: 데이터 응답 성공시 true,
+		isLoading: 데이터 요청 pending상태일때 true
+		isRefetching: true 동일한데이터라도 다시 refecthing 처리유무 (기본값 false)
+	*/
 
 	return (
 		<section className='visual'>
 			<div className='titBox'>
 				<ul>
-					{data.map((tit, idx) => {
-						if (idx >= 7) return null;
-						return (
-							<li key={idx} className={idx === Index ? 'on' : ''}>
-								<h3>{tit.snippet.title}</h3>
-								<p>{tit.snippet.description.substr(0, 300) + '...'}</p>
-								<Link to={`/detail/${tit.id}`}>
-									<button>View Detail</button>
-								</Link>
-							</li>
-						);
-					})}
+				{isSuccess &&
+						data.map((tit, idx) => {
+							if (idx >= 7) return null;
+							return (
+								<li key={idx} className={idx === Index ? 'on' : ''}>
+									<h3>{tit.snippet.title}</h3>
+									<p>{tit.snippet.description.substr(0, 300) + '...'}</p>
+									<button>
+										<Link to={`/detail/${tit.id}`}>
+											<p>View Deatil</p>
+										</Link>
+									</button>
+								</li>
+							);
+						})}
 				</ul>
 			</div>
 			<Swiper
@@ -44,18 +55,26 @@ function Visual() {
 					},
 				}}
 			>
-				{data.map((vid, idx) => {
-					if (idx >= 5) return null;
-					return (
-						<SwiperSlide key={idx}>
-							<div className='pic'>
-								<img src={vid.snippet.thumbnails.maxres.url} alt={vid.title} />
-								<img src={vid.snippet.thumbnails.maxres.url} alt={vid.title} />
-							</div>
-							<h2>{vid.snippet.title}</h2>
-						</SwiperSlide>
-					);
-				})}
+							{isSuccess &&
+					data.map((vid, idx) => {
+						if (idx >= 5) return null;
+						return (
+							<SwiperSlide key={idx}>
+								<div className='pic'>
+									<img
+										src={vid.snippet.thumbnails.maxres.url}
+										alt={vid.title}
+									/>
+									<img
+										src={vid.snippet.thumbnails.maxres.url}
+										alt={vid.title}
+									/>
+								</div>
+
+								<h2>{vid.snippet.title}</h2>
+							</SwiperSlide>
+						);
+					})}
 			</Swiper>
 		</section>
 	);
