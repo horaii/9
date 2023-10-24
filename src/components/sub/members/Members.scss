@@ -12,6 +12,11 @@
 		border-top: 2px solid #333;
 		border-bottom: 2px solid #333;
 
+		span{
+			font-family: 'Pretendard-Regular';
+			margin-left: 40px;
+		}
+
 		th {
 			width: 20%;
 			border: none;
@@ -23,6 +28,7 @@
 				input[type='submit'],
 				input[type='reset'] {
 					border: 1px solid #aaa;
+					border-radius: 20xp;
 					width: 150px;
 					height: 30px;
 					display: inline-flex;
@@ -34,15 +40,26 @@
 			}
 		}
 		td {
+			font-family: 'Pretendard-Regular';
 			border: none;
 			
 			padding: 15px 30px;
 
 			input[type='text'],
 			input[type='password'],
-			textarea,
 			select {
+				font-family: 'Pretendard-Regular';
 				width: 40%;
+				height: 50px;
+				border: 1px solid #aaa;
+				border-radius: 15px;
+				padding: 6px 10px;
+				background: #efefef;
+				resize: none;
+			}
+			textarea{
+				font-family: 'Pretendard-Regular';
+				width: auto;
 				height: 50px;
 				border: 1px solid #aaa;
 				border-radius: 15px;
